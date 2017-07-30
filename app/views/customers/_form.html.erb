@@ -1,0 +1,34 @@
+<%= form_with model: @customer, local: true do |form| %>
+  <% if @customer.errors.any? %>
+    <div class="alert alert-danger">
+      <p><b><%= @customer.errors.count %>件のエラーがあります</b></p>
+
+      <ul>
+      <% @customer.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="form-group">
+    <%= form.label :family_name %><br>
+    <%= form.text_field :family_name, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= form.label :given_name %><br>
+    <%= form.text_field :given_name, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= form.label :email %><br>
+    <%= form.text_field :email, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= form.label :company_id %>
+    <%= form.collection_select :company_id, Company.all, :id, :name , { include_blank: "会社を選択してください" },  { class: "form-control" } %>
+  </div>
+　<div class="form-group">
+    <%= form.label :post_id %>
+    <%= form.collection_select :post_id, Post.all, :id, :position_name, { include_blank: "役職を選択してください" }, { class: "form-control" } %>
+  </div>
+  <%= form.submit class: "btn btn-default" %>
+<% end %>
